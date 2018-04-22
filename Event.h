@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ class Event {
 		void setTime(int t);
 		void setVal(int v);
 		void setCnt(int v);
+
+		void print();
 
 	private:
 		string wire;

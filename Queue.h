@@ -10,6 +10,12 @@ class Queue {
 		// constructor
 		Queue(Event e);
 
+		//pop the top event off the queue
+		Event pop();
+
+		//push an event onto the queue
+		void push(Event e);
+
 		//operators
 		friend bool operator<(const Event &e1, const Event &e2);
 

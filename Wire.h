@@ -9,7 +9,7 @@ class Gate;
 class Wire {
 	public:
 		// constructor
-		Wire(int v, vector<Gate *> d/*change to vector?*/, string n, string h, int i);
+		Wire(int v, vector<Gate *> d, string n, vector<string> h, int i);
 		Wire(string n, int i);
 
 		// member functions
@@ -17,7 +17,7 @@ class Wire {
 		string getVal() const;
 		vector<Gate *> getDrives() const;
 		string getName() const;
-		string getHistory() const;
+		vector<string> getHistory() const;
 		int getIndex() const;
 		
 		//setters
@@ -27,10 +27,12 @@ class Wire {
 		void setHistory(string h);
 		void setIndex(int i);
 
+		void print();
+
 	private:
 		string val;
 		vector<Gate *> drives;
 		string name;
-		string history;
+		vector<string> history;
 		int index;
 };
