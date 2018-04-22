@@ -7,7 +7,6 @@
 #include <fstream>
 
 int main() {
-    // test change
     string filename;
     string vectorFileName;
     ifstream inFS;
