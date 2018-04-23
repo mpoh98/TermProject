@@ -29,8 +29,6 @@ class Wire {
 		void setHistory(string h);
 		void setIndex(int i);
 
-		void print();
-
 	private:
 		string val;
 		vector<Gate *> drives;

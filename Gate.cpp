@@ -109,8 +109,6 @@ string Gate::gateLogic() {
 		else if (in1->getVal() == "X" || in2->getVal() == "X") {
 			return "X";
 		}
-		else {
-			return "1";
-		}
+		return "1";
 	}
 }

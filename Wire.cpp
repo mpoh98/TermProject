@@ -56,18 +56,3 @@ void Wire::setIndex(int i) {
 	index = i;
 }
 
-void Wire::print() {
-	string h;
-	h = getHistory();
-	for (int i = 0; i < h.size(); i++) {
-		if (h == "X") {
-			cout << "X";
-		}
-		else if (h == "0") {
-			cout << "_";
-		}
-		else if (h == "1") {
-			cout << "-";
-		}
-	}
-}

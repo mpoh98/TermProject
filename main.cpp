@@ -17,6 +17,7 @@
 
 Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum);
 
+void print(string h);
 
 int main() {
     string filename;
@@ -37,8 +38,8 @@ int main() {
 
 //appends .txt to the filenames
     vectorFileName = filename;
-    //filename += ".txt";
-    //vectorFileName += "_v.txt";
+    filename += ".txt";
+    vectorFileName += "_v.txt";
 
     inFS.open(filename);
     //error message and exit if the file could not be opened
@@ -71,21 +72,22 @@ int main() {
         }
     //grabs the gates and its inputs and outputs, gets rid of the "ns" for the timing
         string dummy;
-        string gateType;
         int delay, input1 = 0, input2 = 0, output;
         Wire *w1 = nullptr, *w2 = nullptr, *out = nullptr;
         inFS >> delay >> dummy >> input1;
     //grabs the NOT gate slightly differently due to only 1 input and output
         if (type.compare("NOT") != 0) {
             inFS >> input2;
-            w2 = findByIdOrCreate(wires, input1);
+            w2 = findByIdOrCreate(wires, input2);
         }
         inFS >> output;
         w1 = findByIdOrCreate(wires, input1);
         out = findByIdOrCreate(wires, output);
-        Gate *gate = new Gate(gateType, delay, w1, w2, out);
+        Gate *gate = new Gate(type, delay, w1, w2, out);
         w1->addDrive(gate);
-        w2->addDrive(gate);
+        if (w2 != nullptr) {
+            w2->addDrive(gate);
+        }
         gates.push_back(gate);
     }
     
@@ -100,18 +102,19 @@ int main() {
             return 1;
         }
  //iterates through the file until the end of the file
+    int count = 0;
     while(!inFS.eof()) {
         string type;
         inFS >> type;
 		string wire;
 		int time;
 		string val;
-        int count = 0;
+
     //grabs the inputs with their wire name, time, and value
         if (type.compare("INPUT") == 0) {
             inFS >> wire >> time >> val;
         //pushes the inputs into a new Event
-            e.push_back(Event(wire, time, val, count));
+            e.push_back(Event(wire, time, val, count++));
         }
     }
 //close the file
@@ -141,3 +144,16 @@ Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum) {
     return tempWire;
 }
 
+void print(string h) {
+	for (int i = 0; i < h.size(); i++) {
+		if (h.at(i) == 'X') {
+			cout << "X";
+		}
+		else if (h.at(i) == '0') {
+			cout << "_";
+		}
+		else if (h.at(i) == '1') {
+			cout << "-";
+		}
+	}
+}
