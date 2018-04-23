@@ -4,6 +4,7 @@
 //Spring 2018
 //Professor: Dr. Shomper
 
+
 #include "Gate.h"
 #include "Wire.h"
 #include "Event.h"
@@ -26,7 +27,7 @@ int main() {
 
     vector <Gate *> gates;
     vector <Wire *> wires;
-    vector <Event *> e;
+    vector <Event> e;
     
 //Parse both the circuit and vector circuit files
 
@@ -36,14 +37,20 @@ int main() {
 
 //appends .txt to the filenames
     vectorFileName = filename;
-    filename += ".txt";
-    vectorFileName += "_v.txt";
+    //filename += ".txt";
+    //vectorFileName += "_v.txt";
 
     inFS.open(filename);
     //error message and exit if the file could not be opened
-        if (!inFS.is_open()) {
-            cout << "Could not open the file  " << filename << "." << endl;
+        if (!inFS) {
+        //if (!inFS.is_open()) {
+            cout << inFS.good() << " " << inFS.fail() << " " << inFS.bad() << " " << inFS.eof() << endl;
+            string data;
+            inFS >> data;
+            cout << "Could not open the FILE  " << filename << "." << endl;
             return 1;
+        } else {
+            cout << "File was opened\n";
         }
 //iterates through the file until the end of the file
     while(!inFS.eof()) {
@@ -104,7 +111,7 @@ int main() {
         if (type.compare("INPUT") == 0) {
             inFS >> wire >> time >> val;
         //pushes the inputs into a new Event
-            e.push_back(new Event(wire, time, val, count));
+            e.push_back(Event(wire, time, val, count));
         }
     }
 //close the file
@@ -125,7 +132,7 @@ Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum) {
     Wire *tempWire = nullptr;
     for(int i = 0; i < wires.size(); i++) {
         tempWire = wires.at(i);
-        if (tempWire -> getIndex == wireNum) {
+        if (tempWire -> getIndex() == wireNum) {
             return tempWire;
         }
     }

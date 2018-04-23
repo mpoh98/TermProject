@@ -1,7 +1,7 @@
 #include "Wire.h"
 
 //constructor
-Wire::Wire(int v, vector<Gate *> d, string n, vector<string> h, int i) {
+Wire::Wire(int v, vector<Gate *> d, string n, string h, int i) {
 	val = v;
 	drives = d;
 	name = n;
@@ -27,7 +27,7 @@ string Wire::getName() const {
 	return name;
 }
 
-vector<string> Wire::getHistory() const {
+string Wire::getHistory() const {
 	return history;
 }
 
@@ -49,7 +49,7 @@ void Wire::setName(string n) {
 }
 
 void Wire::setHistory(string h) {
-	history.push_back(h);
+	history += h;
 }
 
 void Wire::setIndex(int i) {
@@ -57,16 +57,16 @@ void Wire::setIndex(int i) {
 }
 
 void Wire::print() {
-	vector<string> h;
+	string h;
 	h = getHistory();
 	for (int i = 0; i < h.size(); i++) {
-		if (h.at(i) == "X") {
+		if (h == "X") {
 			cout << "X";
 		}
-		else if (h.at(i) == "0") {
+		else if (h == "0") {
 			cout << "_";
 		}
-		else if (h.at(i) == "1") {
+		else if (h == "1") {
 			cout << "-";
 		}
 	}

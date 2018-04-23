@@ -1,3 +1,5 @@
+#ifndef WIRE_H
+#define WIRE_H
 #include <iostream>
 #include <vector>
 
@@ -9,7 +11,7 @@ class Gate;
 class Wire {
 	public:
 		// constructor
-		Wire(int v, vector<Gate *> d, string n, vector<string> h, int i);
+		Wire(int v, vector<Gate *> d, string n, string h, int i);
 		Wire(string n, int i);
 
 		// member functions
@@ -17,7 +19,7 @@ class Wire {
 		string getVal() const;
 		vector<Gate *> getDrives() const;
 		string getName() const;
-		vector<string> getHistory() const;
+		string getHistory() const;
 		int getIndex() const;
 		
 		//setters
@@ -33,6 +35,8 @@ class Wire {
 		string val;
 		vector<Gate *> drives;
 		string name;
-		vector<string> history;
+		string history;
 		int index;
 };
+
+#endif

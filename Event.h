@@ -1,3 +1,5 @@
+#ifndef EVENT_H
+#define EVENT_H
 #include <iostream>
 #include <vector>
 
@@ -29,3 +31,5 @@ class Event {
 		string val;
 		int cnt;
 };
+
+#endif
