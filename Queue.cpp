@@ -2,16 +2,17 @@
 #include "Event.h"
 #include <queue>
 
-Queue::Queue(Event e) {
+Queue::Queue(Event *e) {
     q.push(e);
 }
 
-Event Queue::pop() {
-    Event e = q.top();
+Event *Queue::pop() {
+    Event *e = q.top();
     q.pop();
+    return e;
 }
 
-void Queue::push(Event e) {
+void Queue::push(Event *e) {
     q.push(e);
 }
 

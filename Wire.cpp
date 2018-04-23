@@ -40,7 +40,7 @@ void Wire::setVal(string v) {
 	val = v;
 }
 
-void Wire::setDrives(Gate *d) {
+void Wire::addDrive(Gate *d) {
 	drives.push_back(d);
 }
 

@@ -22,7 +22,7 @@ class Wire {
 		
 		//setters
 		void setVal(string v);
-		void setDrives(Gate *d);
+		void addDrive(Gate *d);
 		void setName(string n);
 		void setHistory(string h);
 		void setIndex(int i);
