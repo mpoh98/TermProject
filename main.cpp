@@ -113,6 +113,7 @@ int main() {
 //close the file
     inFS.close();
 
+//push the events into the queue
     Queue q(e.at(0));
     for (int i = 0; i < e.size(); i++) {
         
@@ -121,6 +122,8 @@ int main() {
 	return 0;
 }
 
+//Function to find and set a wire, if the wire is not there (example, wires between gates)
+//create that wire and push it into the vector
 Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum) {
     Wire *tempWire = nullptr;
     for(int i = 0; i < wires.size(); i++) {
