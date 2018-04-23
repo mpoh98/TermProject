@@ -86,9 +86,6 @@ int main() {
     inFS.close();
 
 //parse the vector circuit file
-    cout << "Please enter the full name of the vector circuit file. (ex: 'circuit0_v.txt')" << endl;
-    cin >> vectorFileName;
-
     inFS.open(vectorFileName);
     //error message and exit if the file could not be opened
         if (!inFS.is_open()) {
