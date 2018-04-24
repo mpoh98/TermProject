@@ -112,3 +112,12 @@ string Gate::gateLogic() {
 		return "1";
 	}
 }
+
+bool Gate::outputChange() {
+	if (out->getVal() == gateLogic()) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}

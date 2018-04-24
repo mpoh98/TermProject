@@ -16,6 +16,15 @@ void Queue::push(Event e) {
     q.push(e);
 }
 
+bool Queue::empty() {
+	if (q.size() == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 bool operator<(const Event &e1, const Event &e2) {
     if (e1.getTime() == e2.getTime()) {
         if (e1.getCnt() > e2.getCnt()) {

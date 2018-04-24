@@ -18,7 +18,7 @@ class Wire {
 		//getters
 		string getVal() const;
 		vector<Gate *> getDrives() const;
-		string getName() const;
+		string getWireName() const;
 		string getHistory() const;
 		int getIndex() const;
 		
@@ -29,6 +29,7 @@ class Wire {
 		void setHistory(string h);
 		void setIndex(int i);
 
+		void print();
 	private:
 		string val;
 		vector<Gate *> drives;

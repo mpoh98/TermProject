@@ -18,6 +18,8 @@ class Queue {
 		//push an event onto the queue
 		void push(Event e);
 
+		bool empty();
+
 		//operators
 		friend bool operator<(const Event &e1, const Event &e2);
 

@@ -21,7 +21,7 @@ class Gate {
 		Wire * getOut() const;
 
 		string gateLogic();
-		bool outputChange(const Gate &g);
+		bool outputChange();
 
 	private:
 		string type;

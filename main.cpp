@@ -17,8 +17,6 @@
 
 Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum);
 
-void print(string h);
-
 int main() {
     string filename;
     string vectorFileName;
@@ -44,8 +42,6 @@ int main() {
     inFS.open(filename);
     //error message and exit if the file could not be opened
         if (!inFS) {
-        //if (!inFS.is_open()) {
-            cout << inFS.good() << " " << inFS.fail() << " " << inFS.bad() << " " << inFS.eof() << endl;
             string data;
             inFS >> data;
             cout << "Could not open the FILE  " << filename << "." << endl;
@@ -122,10 +118,37 @@ int main() {
 
 //push the events into the queue
     Queue q(e.at(0));
-    for (int i = 0; i < e.size(); i++) {
-        
+    for (int i = 1; i < e.size(); i++) {
+		q.push(e.at(i));
     }
 
+	while (!q.empty() || count <= 60) {
+		Event e0 = q.pop();
+		string wireName = e0.getWire();
+		string val = e0.getVal();
+		for (int i = 0; i < wires.size(); ++i) {
+			if (wireName == wires.at(i)->getWireName()) {
+				wires.at(i)->setVal(val);
+				for (int j = 0; j < gates.size(); ++j) {
+					vector<Gate *> drivenGates = wires.at(i)->getDrives();
+					if (gates.at(j) == drivenGates.at(j)) {
+						Gate g = *gates.at(j);
+						if (g.outputChange()) {
+							string outputName = g.getOut()->getWireName();
+							e.push_back(Event(outputName, e0.getTime() + g.getDelay(), g.gateLogic(), count++));
+						}
+					}
+				}
+			}
+			else {
+				continue;
+			}
+		}
+	}
+
+	for (int i = 0; i < wires.size(); ++i) {
+		wires.at(i)->print();
+	}
 	return 0;
 }
 
@@ -142,18 +165,4 @@ Wire *findByIdOrCreate(vector <Wire *> &wires, int wireNum) {
     tempWire = new Wire("", wireNum);
     wires.push_back(tempWire);
     return tempWire;
-}
-
-void print(string h) {
-	for (int i = 0; i < h.size(); i++) {
-		if (h.at(i) == 'X') {
-			cout << "X";
-		}
-		else if (h.at(i) == '0') {
-			cout << "_";
-		}
-		else if (h.at(i) == '1') {
-			cout << "-";
-		}
-	}
 }

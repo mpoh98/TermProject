@@ -23,7 +23,7 @@ vector<Gate *> Wire::getDrives() const {
 	return drives;
 }
 
-string Wire::getName() const {
+string Wire::getWireName() const {
 	return name;
 }
 
@@ -38,6 +38,7 @@ int Wire::getIndex() const {
 //setters
 void Wire::setVal(string v) {
 	val = v;
+	setHistory(v);
 }
 
 void Wire::addDrive(Gate *d) {
@@ -56,3 +57,17 @@ void Wire::setIndex(int i) {
 	index = i;
 }
 
+void Wire::print() {
+	string h = getHistory();
+	for (int i = 0; i < h.length(); i++) {
+		if (h.at(i) == 'X') {
+			cout << "X";
+		}
+		else if (h.at(i) == '0') {
+			cout << "_";
+		}
+		else if (h.at(i) == '1') {
+			cout << "-";
+		}
+	}
+}
