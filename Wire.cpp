@@ -1,7 +1,8 @@
 #include "Wire.h"
+#include <string>
 
 //constructor
-Wire::Wire(int v, vector<Gate *> d, string n, string h, int i) {
+Wire::Wire(string v, vector<Gate *> d, string n, string h, int i) {
 	val = v;
 	drives = d;
 	name = n;
@@ -9,9 +10,10 @@ Wire::Wire(int v, vector<Gate *> d, string n, string h, int i) {
 	index = i;
 }
 
-Wire::Wire(string n, int i) {
+Wire::Wire(string n, int i, string v) {
 	name = n;
 	index = i;
+	val = v;
 }
 
 //getters
@@ -61,6 +63,7 @@ void Wire::setIndex(int i) {
 
 void Wire::print() {
 	string h = getHistory();
+	cout << getWireName();
 	for (int i = 0; i < h.length(); i++) {
 		if (h.at(i) == 'X') {
 			cout << "X";

@@ -137,6 +137,7 @@ int main() {
 							string outputName = g.getOut()->getWireName();
 							q.push(Event(outputName, event.getTime() + g.getDelay(), g.gateLogic(), count++));
 						}
+						
 					}
 				}
 			}
@@ -149,6 +150,7 @@ int main() {
 	for (int i = 0; i < wires.size(); ++i) {
 		wires.at(i)->print();
 	}
+	cout << "0     5" << endl;
 	return 0;
 }
 

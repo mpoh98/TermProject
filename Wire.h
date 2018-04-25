@@ -11,8 +11,8 @@ class Gate;
 class Wire {
 	public:
 		// constructor
-		Wire(int v, vector<Gate *> d, string n, string h, int i);
-		Wire(string n, int i);
+		Wire(string v, vector<Gate *> d, string n, string h, int i);
+		Wire(string n, int i, string v = "X");
 
 		// member functions
 		//getters
