@@ -128,7 +128,7 @@ int main() {
 		string val = event.getVal();
 		for (int i = 0; i < wires.size(); ++i) {
 			if (wireName == wires.at(i)->getWireName()) {
-				wires.at(i)->setVal(event.getTime(), val);
+				wires.at(i)->setVal(event.getTime(), val, wires.at(i)->getVal());
 				for (int j = 0; j < gates.size(); ++j) {
 					vector<Gate *> drivenGates = wires.at(i)->getDrives();
 					if (gates.size() > i && drivenGates.size() > j && gates.at(j) == drivenGates.at(j)) {
