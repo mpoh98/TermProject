@@ -41,7 +41,7 @@ int main() {
 
     inFS.open(filename);
     //error message and exit if the file could not be opened
-        if (!inFS) {
+       if (!inFS) {
             string data;
             inFS >> data;
             cout << "Could not open the FILE  " << filename << "." << endl;
@@ -122,7 +122,7 @@ int main() {
 		q.push(e.at(i));
     }
 
-	while (!q.empty() || count <= 60) {
+	while (!q.empty() && count <= 60) {
 		Event e0 = q.pop();
 		string wireName = e0.getWire();
 		string val = e0.getVal();
@@ -131,11 +131,11 @@ int main() {
 				wires.at(i)->setVal(val);
 				for (int j = 0; j < gates.size(); ++j) {
 					vector<Gate *> drivenGates = wires.at(i)->getDrives();
-					if (gates.at(j) == drivenGates.at(j)) {
+					if (gates.size() > i && drivenGates.size() > j && gates.at(j) == drivenGates.at(j)) {
 						Gate g = *gates.at(j);
 						if (g.outputChange()) {
 							string outputName = g.getOut()->getWireName();
-							e.push_back(Event(outputName, e0.getTime() + g.getDelay(), g.gateLogic(), count++));
+							q.push(Event(outputName, e0.getTime() + g.getDelay(), g.gateLogic(), count++));
 						}
 					}
 				}
