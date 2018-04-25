@@ -123,19 +123,19 @@ int main() {
     }
 
 	while (!q.empty() && count <= 60) {
-		Event e0 = q.pop();
-		string wireName = e0.getWire();
-		string val = e0.getVal();
+		Event event = q.pop();
+		string wireName = event.getWire();
+		string val = event.getVal();
 		for (int i = 0; i < wires.size(); ++i) {
 			if (wireName == wires.at(i)->getWireName()) {
-				wires.at(i)->setVal(val);
+				wires.at(i)->setVal(event.getTime(), val);
 				for (int j = 0; j < gates.size(); ++j) {
 					vector<Gate *> drivenGates = wires.at(i)->getDrives();
 					if (gates.size() > i && drivenGates.size() > j && gates.at(j) == drivenGates.at(j)) {
 						Gate g = *gates.at(j);
 						if (g.outputChange()) {
 							string outputName = g.getOut()->getWireName();
-							q.push(Event(outputName, e0.getTime() + g.getDelay(), g.gateLogic(), count++));
+							q.push(Event(outputName, event.getTime() + g.getDelay(), g.gateLogic(), count++));
 						}
 					}
 				}

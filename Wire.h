@@ -23,10 +23,10 @@ class Wire {
 		int getIndex() const;
 		
 		//setters
-		void setVal(string v);
+		void setVal(int time, string v);
 		void addDrive(Gate *d);
 		void setName(string n);
-		void setHistory(string h);
+		void setHistory(int time, string h);
 		void setIndex(int i);
 
 		void print();
