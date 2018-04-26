@@ -26,7 +26,7 @@ int main() {
 
     vector <Gate *> gates;
     vector <Wire *> wires;
-    vector <Event> e;
+	Queue q;
     
 //Parse both the circuit and vector circuit files
 
@@ -86,7 +86,7 @@ int main() {
         }
         gates.push_back(gate);
     }
-    
+
 //close the file
     inFS.close();
 
@@ -110,47 +110,47 @@ int main() {
         if (type.compare("INPUT") == 0) {
             inFS >> wire >> time >> val;
         //pushes the inputs into a new Event
-            e.push_back(Event(wire, time, val, count++));
+            q.push(Event(wire, time, val, count++));
         }
     }
 //close the file
     inFS.close();
 
-//push the events into the queue
-    Queue q(e.at(0));
-    for (int i = 1; i < e.size(); i++) {
-		q.push(e.at(i));
-    }
-
 	while (!q.empty() && count <= 60) {
-		Event event = q.pop();
-		string wireName = event.getWire();
-		string val = event.getVal();
+		Event event = q.pop(); // pop off top event
+		string wireName = event.getWire(); //find the wire effected by the event
+		string val = event.getVal(); // get the value that the affected wire is being changed to
 		for (int i = 0; i < wires.size(); ++i) {
-			if (wireName == wires.at(i)->getWireName()) {
-				wires.at(i)->setVal(event.getTime(), val, wires.at(i)->getVal());
-				for (int j = 0; j < gates.size(); ++j) {
-					vector<Gate *> drivenGates = wires.at(i)->getDrives();
-					if (gates.size() > i && drivenGates.size() > j && gates.at(j) == drivenGates.at(j)) {
-						Gate g = *gates.at(j);
-						if (g.outputChange()) {
-							string outputName = g.getOut()->getWireName();
-							q.push(Event(outputName, event.getTime() + g.getDelay(), g.gateLogic(), count++));
+			if (wireName == wires.at(i)->getWireName()) { // find the actual wire being affected in the wires vector
+				wires.at(i)->setVal(event.getTime(), val); // set the value of the wire
+				for (int j = 0; j < wires.at(i)->getDrives().size(); ++j) { // finding the driven gates of the wire
+						Gate g = *wires.at(i)->getDrives().at(j);
+						if (g.outputChange()) { // if there is an output change...
+							string outputName = g.getOut()->getWireName(); // get the output wire affected
+							q.push(Event(outputName, event.getTime() + g.getDelay(), g.gateLogic(), count++)); // push new event onto queue
+
 						}
-						
-					}
 				}
+
+				break;
 			}
 			else {
 				continue;
 			}
 		}
+		
+		if (q.empty()) { // extends values a bit
+			for (int i = 0; i < wires.size(); ++i) {
+				wires.at(i)->setVal(event.getTime() * 2, "X");
+			}
+
+		}
 	}
 
-	for (int i = 0; i < wires.size(); ++i) {
+	for (int i = 0; i < wires.size(); ++i) { // printing waveforms
 		wires.at(i)->print();
 	}
-	cout << "0     5" << endl;
+	cout << " 0    5" << endl;
 	return 0;
 }
 

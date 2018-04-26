@@ -9,8 +9,6 @@ class Event;
 
 class Queue {
 	public:
-		// constructor
-		Queue(Event e);
 
 		//pop the top event off the queue
 		Event pop();

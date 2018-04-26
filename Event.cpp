@@ -43,6 +43,8 @@ void Event::setCnt(int c) {
 }
 
 void Event::print() {
+	cout << time << ":" << wire.c_str() << ":" << val.c_str() << endl;
+
 	/*for (int i = 0; i < t.size(); i++) {
 		if (t.at(i) == 5) {
 			cout << "5";

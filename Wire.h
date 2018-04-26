@@ -23,10 +23,10 @@ class Wire {
 		int getIndex() const;
 		
 		//setters
-		void setVal(int time, string v, string oldVal);
+		void setVal(int time, string v);
 		void addDrive(Gate *d);
 		void setName(string n);
-		void setHistory(int time, string h);
+		void setHistory(int time);
 		void setIndex(int i);
 
 		void print();
@@ -36,6 +36,7 @@ class Wire {
 		string name;
 		string history;
 		int index;
+		int timeOfLastEvent = 0;
 };
 
 #endif

@@ -2,13 +2,10 @@
 #include "Event.h"
 #include <queue>
 
-Queue::Queue(Event e) {
-    q.push(e);
-}
 
 Event Queue::pop() {
     Event e = q.top();
-    q.pop();
+	q.pop();
     return e;
 }
 

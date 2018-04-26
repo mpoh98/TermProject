@@ -38,9 +38,10 @@ int Wire::getIndex() const {
 }
 
 //setters
-void Wire::setVal(int time, string v, string oldVal) {
+void Wire::setVal(int time, string v) {
+	timeOfLastEvent = time - timeOfLastEvent;
+	setHistory(timeOfLastEvent);
 	val = v;
-	setHistory(time, oldVal);
 }
 
 void Wire::addDrive(Gate *d) {
@@ -51,9 +52,9 @@ void Wire::setName(string n) {
 	name = n;
 }
 
-void Wire::setHistory(int time, string h) {
+void Wire::setHistory(int time) {
 	for (int i = 0; i < time; ++i) {
-		history += h;
+		history += val;
 	}
 }
 
@@ -63,7 +64,12 @@ void Wire::setIndex(int i) {
 
 void Wire::print() {
 	string h = getHistory();
-	cout << getWireName();
+	if (getWireName() == "") {
+		cout << getIndex();
+	}
+	else {
+		cout << getWireName();
+	}
 	for (int i = 0; i < h.length(); i++) {
 		if (h.at(i) == 'X') {
 			cout << "X";
